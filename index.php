@@ -3,7 +3,8 @@
 define("URL", str_replace("index.php", "", (isset($_SERVER['HTTPS']) ? "https" : "http") .
     "://$_SERVER[HTTP_HOST]$_SERVER[PHP_SELF]"));
 
-require_once "";
+require_once "./controllers/front/API.controller.php";
+$apiController = new APIController();
 
 try {
     if(empty($_GET['page'])){
@@ -14,13 +15,15 @@ try {
         switch ($url[0]){
             case "front" :
                 switch ($url[1]){
-                    case "animaux" : echo "Données JSON des animaux demandées.";
+                    case "animaux" : $apiController->getAnimaux();
                     break;
-                    case "animal" : echo "Données JSON de l'animal ".$url[2]." demandées.";
+                    case "animal" :
+                        if (empty($url[2])) throw new Exception("L'indentifiant de l'animal est manquant.");
+                        $apiController->getAnimal($url[2]);
                     break;
-                    case "continents" : echo "Données JSON des continents demandées.";
+                    case "continents" : $apiController->getContinents();
                     break;
-                    case "familles" : echo "Données JSON des familles demandées.";
+                    case "familles" : $apiController->getFamilles();
                     break;
                     default : throw new Exception("La page n'existe pas.");
                 }
