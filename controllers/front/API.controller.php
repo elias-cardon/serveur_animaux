@@ -9,10 +9,13 @@ class APIController{
     }
     public function getAnimaux(){
         $animaux = $this ->apiManager->getDBAnimaux();
-        echo "Envoi des infos sur les animaux";
+        echo "<pre>";
+        print_r($animaux);
+        echo "</pre>";
     }
 
     public function getAnimal($idAnimal){
+        $lignesAnimal = $this->apiManager->getDBAnimaux($idAnimal);
         echo "Données JSON de l'animal ".$idAnimal." demandées.";
     }
 
