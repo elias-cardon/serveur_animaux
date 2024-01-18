@@ -10,16 +10,25 @@ class APIController{
     }
     public function getAnimaux(){
         $animaux = $this ->apiManager->getDBAnimaux();
-        echo "<pre>";
-        print_r($animaux);
-        echo "</pre>";
+        Model::sendJSON($this->formatDataLignesAnimaux($animaux));
     }
 
     public function getAnimal($idAnimal){
         $lignesAnimal = $this->apiManager->getDBAnimal($idAnimal);
-        echo "<pre>";
-        print_r($lignesAnimal);
-        echo "</pre>";
+        Model::sendJSON($this->formatDataLignesAnimaux($lignesAnimal));
+    }
+
+    private function formatDataLignesAnimaux($lignes){
+        $tab = [];
+        foreach ($lignes as $ligne){
+            $tab[] = [
+                "id" => $ligne['animal_id'],
+                "nom" => $ligne['animal_nom'],
+                "description" => $ligne['animal_description'],
+                "image" => $ligne['animal_image']
+            ];
+        }
+        return $tab;
     }
 
     public function getContinents(){
