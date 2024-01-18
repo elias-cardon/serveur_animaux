@@ -9,9 +9,15 @@ abstract class Model{
     }
 
     protected function getBdd(){
-        if (self::$pdo==null){
+        if (self::$pdo===null){
             self::setBdd();
         }
         return self::$pdo;
+    }
+
+    public static function sendJSON($info){
+        header("Access-Control-Allow-Origin: *");
+        header("Content-Type: application/json");
+        echo json_encode($info);
     }
 }
