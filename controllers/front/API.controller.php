@@ -10,22 +10,44 @@ class APIController{
     }
     public function getAnimaux(){
         $animaux = $this ->apiManager->getDBAnimaux();
-        Model::sendJSON($this->formatDataLignesAnimaux($animaux));
+        $tabResultat = $this->formatDataLignesAnimaux($animaux);
+        //Les trois lignes suivantes servent à débugger
+        //echo "<pre>";
+        //print_r($tabResultat);
+        //echo "</pre>";
+        Model::sendJSON($tabResultat);
     }
 
     public function getAnimal($idAnimal){
         $lignesAnimal = $this->apiManager->getDBAnimal($idAnimal);
-        Model::sendJSON($this->formatDataLignesAnimaux($lignesAnimal));
+        $tabResultat = $this->formatDataLignesAnimaux($lignesAnimal);
+        //Les trois lignes suivantes servent à débugger
+        //echo "<pre>";
+        //print_r($tabResultat);
+        //echo "</pre>";
+        Model::sendJSON($tabResultat);
     }
 
     private function formatDataLignesAnimaux($lignes){
         $tab = [];
         foreach ($lignes as $ligne){
-            $tab[] = [
-                "id" => $ligne['animal_id'],
-                "nom" => $ligne['animal_nom'],
-                "description" => $ligne['animal_description'],
-                "image" => $ligne['animal_image']
+            if (!array_key_exists($ligne['animal_id'],$tab)){
+                $tab[$ligne['animal_id']] = [
+                    "id" => $ligne['animal_id'],
+                    "nom" => $ligne['animal_nom'],
+                    "description" => $ligne['animal_description'],
+                    "image" => $ligne['animal_image'],
+                    "famille" => [
+                        "idFamille" => $ligne['famille_id'],
+                        "libelleFamille" => $ligne['famille_libelle'],
+                        "descriptionFamille" => $ligne['famille_description']
+                    ]
+                ];
+            }
+
+            $tab[$ligne['animal_id']]['continents'][] = [
+                "idContinent" => $ligne['continent_id'],
+                "libelleContinent" => $ligne['continent_libelle']
             ];
         }
         return $tab;
