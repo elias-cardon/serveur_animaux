@@ -1,37 +1,48 @@
 <?php
+// Inclut les classes nécessaires
 require_once "./models/front/API.manager.php";
 require_once "./models/Model.php";
 
-class APIController{
+// Définition de la classe APIController
+class APIController {
+    // Propriété privée pour stocker une instance de APIManager
     private $apiManager;
 
-    public function __construct(){
+    // Constructeur de la classe
+    public function __construct() {
+        // Initialise l'instance de APIManager dans le constructeur
         $this->apiManager = new APIManager();
     }
-    public function getAnimaux(){
-        $animaux = $this ->apiManager->getDBAnimaux();
+
+    // Méthode pour récupérer toutes les informations sur les animaux
+    public function getAnimaux() {
+        // Appelle la méthode de APIManager pour obtenir les données des animaux depuis la base de données
+        $animaux = $this->apiManager->getDBAnimaux();
+
+        // Formate les données des animaux
         $tabResultat = $this->formatDataLignesAnimaux($animaux);
-        //Les trois lignes suivantes servent à débugger
-        //echo "<pre>";
-        //print_r($tabResultat);
-        //echo "</pre>";
+
+        // Envoie les données au format JSON
         Model::sendJSON($tabResultat);
     }
 
-    public function getAnimal($idAnimal){
+    // Méthode pour récupérer les informations sur un animal spécifique
+    public function getAnimal($idAnimal) {
+        // Appelle la méthode de APIManager pour obtenir les données d'un animal spécifique depuis la base de données
         $lignesAnimal = $this->apiManager->getDBAnimal($idAnimal);
+
+        // Formate les données de l'animal spécifique
         $tabResultat = $this->formatDataLignesAnimaux($lignesAnimal);
-        //Les trois lignes suivantes servent à débugger
-        //echo "<pre>";
-        //print_r($tabResultat);
-        //echo "</pre>";
+
+        // Envoie les données au format JSON
         Model::sendJSON($tabResultat);
     }
 
-    private function formatDataLignesAnimaux($lignes){
+    // Méthode privée pour formater les données des lignes d'animaux
+    private function formatDataLignesAnimaux($lignes) {
         $tab = [];
-        foreach ($lignes as $ligne){
-            if (!array_key_exists($ligne['animal_id'],$tab)){
+        foreach ($lignes as $ligne) {
+            if (!array_key_exists($ligne['animal_id'], $tab)) {
                 $tab[$ligne['animal_id']] = [
                     "id" => $ligne['animal_id'],
                     "nom" => $ligne['animal_nom'],
@@ -53,13 +64,21 @@ class APIController{
         return $tab;
     }
 
-    public function getContinents(){
+    // Méthode pour récupérer toutes les informations sur les continents
+    public function getContinents() {
+        // Appelle la méthode de APIManager pour obtenir les données des continents depuis la base de données
         $continents = $this->apiManager->getDBContinents();
+
+        // Envoie les données au format JSON
         Model::sendJSON($continents);
     }
 
-    public function getFamilles(){
+    // Méthode pour récupérer toutes les informations sur les familles
+    public function getFamilles() {
+        // Appelle la méthode de APIManager pour obtenir les données des familles depuis la base de données
         $familles = $this->apiManager->getDBFamilles();
+
+        // Envoie les données au format JSON
         Model::sendJSON($familles);
     }
 }

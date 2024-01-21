@@ -1,6 +1,11 @@
+# Active le moteur de réécriture d'URL
 RewriteEngine On
 
+# Vérifie si le chemin demandé n'est pas un fichier existant
 RewriteCond %{REQUEST_FILENAME} !-f
+
+# Vérifie si le chemin demandé n'est pas un répertoire existant
 RewriteCond %{REQUEST_FILENAME} !-d
 
+# Réécrit l'URL pour diriger toutes les demandes vers index.php avec le paramètre 'page'
 RewriteRule ^(.*)$ index.php?page=$1
