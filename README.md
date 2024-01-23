@@ -24,7 +24,7 @@ Je n'ai pas validé la totalité du titre professionnel "Développeur web et web
 
 #### Quel est ce répertoire ?
 
-Ce répertoire est la partie back-end de l'application mobile. On y trouvera donc que du PHP et du SQL.
+Ce répertoire est la partie back-end de l'application web. On y trouvera donc que du PHP et du SQL.
 
 
 ## Auteur
