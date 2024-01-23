@@ -14,6 +14,19 @@ C'est une API faite en PHP et qui fait le lien entre la base de données et une 
 - L’entreprise a recruté deux développeurs spécialisés dans les technologies PHP et JS front-end, qui débuteront leur travail dans deux mois
 
 - Ils souhaitent donc que les technologies utilisées soit PHP pour le back-end et React pour le front-end
+
+  
+## FAQ
+
+#### Pourquoi ce projet ?
+
+Je n'ai pas validé la totalité du titre professionnel "Développeur web et web mobile". Aussi je souhaite monter en compétences en PHP et en React JS.
+
+#### Quel est ce répertoire ?
+
+Ce répertoire est la partie back-end de l'application mobile. On y trouvera donc que du PHP et du SQL.
+
+
 ## Auteur
 
 - [@elias-cardon](https://github.com/elias-cardon)
