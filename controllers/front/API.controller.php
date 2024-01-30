@@ -15,9 +15,9 @@ class APIController {
     }
 
     // Méthode pour récupérer toutes les informations sur les animaux
-    public function getAnimaux() {
+    public function getAnimaux($idFamille, $idContinent) {
         // Appelle la méthode de APIManager pour obtenir les données des animaux depuis la base de données
-        $animaux = $this->apiManager->getDBAnimaux();
+        $animaux = $this->apiManager->getDBAnimaux($idFamille, $idContinent);
 
         // Formate les données des animaux
         $tabResultat = $this->formatDataLignesAnimaux($animaux);

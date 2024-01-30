@@ -26,7 +26,11 @@ try {
                 // Traite les différentes sous-pages de la section 'front'
                 switch ($url[1]) {
                     case "animaux":
-                        $apiController->getAnimaux();
+                        if(!isset($url[2]) || !isset($url[3])){
+                            $apiController -> getAnimaux(-1,-1);
+                        } else {
+                            $apiController -> getAnimaux((int)$url[2],(int)$url[3]);
+                        }
                         break;
                     case "animal":
                         // Vérifie si l'identifiant de l'animal est présent dans l'URL
